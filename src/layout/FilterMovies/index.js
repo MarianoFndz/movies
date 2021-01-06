@@ -6,7 +6,7 @@ import useMovies from "hooks/useMovies";
 //Styled Components
 import { Container, Title } from "./styles";
 
-export default function Movies() {
+export default function FilterMovies() {
   const { loading, movies } = useMovies();
 
   return (

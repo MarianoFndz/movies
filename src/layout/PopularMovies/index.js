@@ -1,26 +1,34 @@
 //Styled Components
 import { Container, Title } from "./styles";
-import Movie from "components/Movie";
+import Movies from "components/Movies";
 import useMovies from "hooks/useMovies";
 import Spinner from "components/Spinner";
+import Next from "components/Next";
 
-export default function Movies() {
-  const { loading, movies } = useMovies();
+import { Fragment, useCallback } from "react";
+
+export default function PopularMovies() {
+  const { loading, movies, setPage, page } = useMovies();
+
+  const handleNextPage = useCallback(() => {
+    setPage((prevPage) => prevPage + 1);
+  }, [setPage]);
+
+  const handlePrevPage = useCallback(() => {
+    if (page === 1) return;
+    setPage((prevPage) => prevPage - 1);
+  }, [page, setPage]);
+
+  console.log(page);
 
   return (
-    <Container>
-      <Title>POPULAR MOVIES</Title>
-      {loading ? (
-        <Spinner />
-      ) : (
-        movies.map((element, index) =>
-          index === 0 ? (
-            <Movie key={element.id} top={true} data={element}></Movie>
-          ) : (
-            <Movie key={element.id} top={false} data={element}></Movie>
-          )
-        )
-      )}
-    </Container>
+    <>
+      <Next handleNextPage={handleNextPage} handlePrevPage={handlePrevPage} />
+      <Container>
+        <Title>POPULAR MOVIES</Title>
+        {loading ? <Spinner /> : <Movies movies={movies} />}
+      </Container>
+      <Next handleNextPage={handleNextPage} handlePrevPage={handlePrevPage} />
+    </>
   );
 }

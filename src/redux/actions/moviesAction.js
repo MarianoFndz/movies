@@ -11,34 +11,37 @@ import {
   GET_CURRENT_MOVIE_ERROR,
 } from "redux/types";
 
-export function popularMovies(search) {
+export function popularMovies(search, page) {
   return async (dispatch) => {
-    const { text, rating } = search;
+    const { rating } = search;
+    console.log(page);
     dispatch(popularMoviesStart());
-    const url =
-      "https://api.themoviedb.org/3/discover/movie?api_key=73faf0da9a32b7975953fed9a7fed103&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1";
+    const url = `https://api.themoviedb.org/3/discover/movie?api_key=73faf0da9a32b7975953fed9a7fed103&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}`;
     const response = await fetch(url);
     const responseJson = await response.json();
     let movies = responseJson.results;
     if (response.status === 200) {
-      if (rating !== 0)
+      if (rating !== 0) {
         movies = movies.filter(
           (element) =>
             element.vote_average <= rating && element.vote_average >= rating - 2
         );
+      }
       dispatch(popularMoviesSucces(movies));
     } else dispatch(popularMoviesError());
   };
 }
 
-export function filterMovies(data) {
+export function filterMovies(data, page) {
   return async (dispatch) => {
     const { text, rating } = data;
+    console.log(page);
     dispatch(filterMoviesStart());
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=73faf0da9a32b7975953fed9a7fed103&language=en-US&query=${text}&page=1&include_adult=false`;
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=73faf0da9a32b7975953fed9a7fed103&language=en-US&query=${text}&page=${page}&include_adult=false`;
     const response = await fetch(url);
     const responseJson = await response.json();
     let movies = responseJson.results;
+
     if (response.status === 200) {
       if (rating !== 0)
         movies = movies.filter(

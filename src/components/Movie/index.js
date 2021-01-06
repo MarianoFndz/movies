@@ -1,10 +1,12 @@
 import { Top, MovieStyled, Img } from "./styles";
-import { useEffect } from "react";
+import { useEffect, memo } from "react";
 
 import imgApi from "utilities/ImgAPI";
 import { useHistory } from "react-router-dom";
-export default function Movie({ top, data }) {
+
+const Movie = ({ top, data }) => {
   const { id, poster_path, vote_average } = data;
+
   useEffect(() => {
     console.log("Movie", id);
   });
@@ -24,4 +26,6 @@ export default function Movie({ top, data }) {
       <Img src={imgApi + poster_path}></Img>
     </MovieStyled>
   );
-}
+};
+
+export default Movie;
