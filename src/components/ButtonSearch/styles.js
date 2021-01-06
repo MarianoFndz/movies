@@ -21,6 +21,8 @@ export const Container = styled.button`
   }
 
   &:active {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    outline: none;
     transform: scale(1);
     box-shadow: 0 0 0.3rem rgba(0, 0, 0, 0.6);
   }

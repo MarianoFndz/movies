@@ -1,20 +1,37 @@
 import "./App.css";
-import MainGrid from "./layout/MainGrid";
-import Navbar from "./layout/Navbar";
 import { ThemeProvider } from "styled-components";
 import theme from "utilities/theme.js";
+
+//Components
+import SingleMovie from "layout/SingleMovie";
+import MainGrid from "./layout/MainGrid";
+import Navbar from "./layout/Navbar";
+import PopularMovies from "layout/PopularMovies";
+import FilterMovies from "layout/FilterMovies";
 
 //Redux
 import { Provider } from "react-redux";
 import store from "redux/store";
 
+//Router
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 function App() {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <MainGrid>
-          <Navbar></Navbar>
-        </MainGrid>
+        <Router>
+          <Switch>
+            <MainGrid>
+              <Navbar></Navbar>
+              <Route exact path="/">
+                <PopularMovies></PopularMovies>
+              </Route>
+              <Route exact path="/filter" component={FilterMovies}></Route>
+              <Route exact path="/:id" component={SingleMovie}></Route>
+            </MainGrid>
+          </Switch>
+        </Router>
       </ThemeProvider>
     </Provider>
   );

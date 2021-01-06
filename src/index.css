@@ -4,6 +4,7 @@
   margin: 0;
   padding: 0;
   box-sizing: inherit;
+  font-family: "Raleway", sans-serif;
 }
 
 html {
@@ -20,6 +21,8 @@ body {
   min-height: 100vh;
 }
 
-:root {
-  --tab-port: 900px;
+@media (max-width: 25rem) {
+  body {
+    padding: 1rem;
+  }
 }

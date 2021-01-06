@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   background: ${(props) => props.theme.primary};
-  border-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   min-height: 9rem;
 
   display: flex;
@@ -14,7 +15,7 @@ export const Container = styled.div`
     flex-direction: column;
   }
 
-  @media (max-width: 25rem) {
+  @media (max-width: 30rem) {
     padding: 1rem;
   }
 `;
@@ -30,7 +31,14 @@ export const LogoContainer = styled.div`
 
 export const Logo = styled.p`
   font-size: 3rem;
+  cursor: pointer;
   font-family: "Redressed", cursive;
   color: ${(props) => props.theme.secondary};
   cursor: pointer;
+
+  &:active,
+  &:focus {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    outline: none;
+  }
 `;

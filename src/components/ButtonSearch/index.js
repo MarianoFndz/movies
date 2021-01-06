@@ -1,9 +1,9 @@
 import iconSearch from "assets/search.svg";
 import { Container } from "./styles";
 
-export default function ButtonSearch() {
+export default function ButtonSearch({ handleClick }) {
   return (
-    <Container>
+    <Container onClick={handleClick}>
       <img src={iconSearch}></img>
     </Container>
   );

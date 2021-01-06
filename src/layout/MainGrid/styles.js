@@ -7,7 +7,7 @@ export const Container = styled.div`
   @media screen and (max-width: 56.25rem) {
     grid-template-rows: 15vh min-content;
   }
-  @media screen and (max-width: 25rem) {
+  @media screen and (max-width: 30rem) {
     grid-template-rows: min-content min-content;
   }
 `;
