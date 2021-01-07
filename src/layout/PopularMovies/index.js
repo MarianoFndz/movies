@@ -7,7 +7,6 @@ import { Container, Title } from "./styles";
 //Custom hooks
 import useMovies from "hooks/useMovies";
 import useNearScreen from "hooks/useNearScreen";
-import { useSelector } from "react-redux";
 
 const PopularMovies = () => {
   const { isNearScreen, fromRef } = useNearScreen({ distance: "200px" });

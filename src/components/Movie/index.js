@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 //Assets
 import imgApi from "utilities/ImgAPI";
 
-const Movie = ({ index, id, top, data = {} }) => {
+const Movie = ({ id, top, data }) => {
   const { poster_path, vote_average } = data;
   const history = useHistory();
 

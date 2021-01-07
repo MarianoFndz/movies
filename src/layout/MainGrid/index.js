@@ -1,3 +1,4 @@
+//Components
 import { Container } from "./styles.js";
 
 const MainGrid = (props) => {

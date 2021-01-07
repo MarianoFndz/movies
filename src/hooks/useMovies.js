@@ -43,8 +43,8 @@ const useMovies = () => {
       loadNextMovies();
     } else {
       loadMovies();
+      setSearch(search);
     }
-    setSearch(search);
   }, [page, search]);
 
   const data = { setPage };

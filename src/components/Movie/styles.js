@@ -58,7 +58,7 @@ export const Top = styled.div`
 export const MovieStyled = styled.div`
   padding: 1rem;
   position: relative;
-
+  min-height: 20rem;
   &::before {
     content: "${(props) => props.rating}";
     font-size: 2rem;
