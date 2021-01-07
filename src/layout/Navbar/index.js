@@ -1,9 +1,12 @@
-import { Container, Logo, LogoContainer } from "./styles.js";
+//Components
 import Search from "components/Search";
-import logo from "assets/logo.svg";
+import Logo from "components/Logo";
+//React Router
 import { useHistory } from "react-router-dom";
+//Styled Components
+import { Container } from "./styles.js";
 
-function Navbar() {
+const Navbar = () => {
   const history = useHistory();
 
   const handleClick = () => {
@@ -12,13 +15,10 @@ function Navbar() {
 
   return (
     <Container>
-      <LogoContainer>
-        <img src={logo}></img>
-        <Logo onClick={handleClick}>Movies</Logo>
-      </LogoContainer>
-      <Search></Search>
+      <Logo handleClick={handleClick} />
+      <Search />
     </Container>
   );
-}
+};
 
 export default Navbar;

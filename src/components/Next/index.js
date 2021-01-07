@@ -1,7 +1,7 @@
-import next from "assets/next.svg";
-
 //Styled Components
 import { Container, LeftArrow, RightArrow, Img } from "./styles";
+//Assets
+import next from "assets/next.svg";
 
 const Next = ({ handleNextPage, handlePrevPage }) => (
   <Container>

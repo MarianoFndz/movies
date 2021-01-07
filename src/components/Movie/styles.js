@@ -15,6 +15,7 @@ export const Top = styled.div`
   &::after {
     content: "TOP";
     font-size: 2rem;
+    font-weight: 800;
     color: ${(props) => props.theme.secondary};
 
     display: flex;

@@ -1,7 +1,7 @@
 import { Container } from "./styles.js";
 
-function MainGrid(props) {
+const MainGrid = (props) => {
   return <Container>{props.children}</Container>;
-}
+};
 
 export default MainGrid;

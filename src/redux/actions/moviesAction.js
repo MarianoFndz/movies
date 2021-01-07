@@ -11,10 +11,9 @@ import {
   GET_CURRENT_MOVIE_ERROR,
 } from "redux/types";
 
-export function popularMovies(search, page) {
+export function popularMovies(search, page, currentMovies = []) {
   return async (dispatch) => {
     const { rating } = search;
-    console.log(page);
     dispatch(popularMoviesStart());
     const url = `https://api.themoviedb.org/3/discover/movie?api_key=73faf0da9a32b7975953fed9a7fed103&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}`;
     const response = await fetch(url);
@@ -27,12 +26,15 @@ export function popularMovies(search, page) {
             element.vote_average <= rating && element.vote_average >= rating - 2
         );
       }
-      dispatch(popularMoviesSucces(movies));
+      if (page > 1) {
+        movies = currentMovies.concat(movies);
+        dispatch(popularMoviesSucces(movies));
+      } else dispatch(popularMoviesSucces(movies));
     } else dispatch(popularMoviesError());
   };
 }
 
-export function filterMovies(data, page) {
+export function filterMovies(data, page, currentMovies) {
   return async (dispatch) => {
     const { text, rating } = data;
     console.log(page);
@@ -48,6 +50,10 @@ export function filterMovies(data, page) {
           (element) =>
             element.vote_average <= rating && element.vote_average >= rating - 2
         );
+      if (page > 1) {
+        movies = currentMovies.concat(movies);
+        dispatch(filterMoviesSucces(movies));
+      }
       dispatch(filterMoviesSucces(movies));
     } else dispatch(filterrMoviesError());
   };

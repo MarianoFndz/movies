@@ -1,6 +1,6 @@
-import { InputText } from "./styles";
+import { Input } from "./styles";
 
-export default function InputTextSearch({ setSearch, search }) {
+export default function InputText({ setSearch, search }) {
   const { text } = search;
 
   const handleChange = (e) => {
@@ -8,7 +8,7 @@ export default function InputTextSearch({ setSearch, search }) {
   };
 
   return (
-    <InputText
+    <Input
       type="text"
       placeholder="Movie..."
       value={text}

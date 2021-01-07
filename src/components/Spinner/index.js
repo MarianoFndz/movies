@@ -1,5 +1,6 @@
+//Styled components
 import { Container } from "./styles";
 
-export default function Spinner() {
-  return <Container />;
-}
+const Spinner = () => <Container />;
+
+export default Spinner;

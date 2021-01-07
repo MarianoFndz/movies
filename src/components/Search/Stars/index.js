@@ -1,10 +1,14 @@
-import { Container } from "./styles";
-import Star from "components/Star";
+//React
 import { useState, useEffect, useCallback } from "react";
+//Styled components
+import { Container } from "./styles";
+//Components
+import Star from "./Star";
+//Assets
 import emptyStar from "assets/emptyStar.svg";
 import fullStar from "assets/fullStar.svg";
 
-export default function Stars({ setSearch, search }) {
+const Stars = ({ setSearch, search }) => {
   const stars = [2, 4, 6, 8, 10];
   const [ratingSelected, setRatingSelected] = useState(0);
 
@@ -31,4 +35,6 @@ export default function Stars({ setSearch, search }) {
       ))}
     </Container>
   );
-}
+};
+
+export default Stars;

@@ -1,11 +1,14 @@
+//React
 import { useEffect, useState } from "react";
+//React Redux
 import { useDispatch, useSelector } from "react-redux";
 import { popularMovies, filterMovies } from "redux/actions/moviesAction";
+//React router
 import { useLocation } from "react-router-dom";
 
 const INITIAL_PAGE = 1;
 
-export default function useMovies() {
+const useMovies = () => {
   const [page, setPage] = useState(INITIAL_PAGE);
 
   const dispatch = useDispatch();
@@ -18,15 +21,15 @@ export default function useMovies() {
     dispatch(filterMovies(search, page, movies));
 
   const search = useSelector((state) => state.movies.search);
+
   const movies = useSelector((state) => state.movies.movies);
 
   const loadMovies = () => {
-    if (location.pathname === "/") loadPopularMovies(search, page);
-    else loadFilterMovies(search, page);
+    if (location.pathname === "/") loadPopularMovies(search, page, movies);
+    else loadFilterMovies(search, page, movies);
   };
 
   useEffect(() => {
-    console.log("Movies render");
     loadMovies();
   }, [page, search]);
 
@@ -34,4 +37,6 @@ export default function useMovies() {
   const data = { movies, loading, setPage, page };
 
   return data;
-}
+};
+
+export default useMovies;

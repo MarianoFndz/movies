@@ -27,8 +27,8 @@ function App() {
               <Route exact path="/">
                 <PopularMovies></PopularMovies>
               </Route>
+              <Route exact path="/movie/:id" component={SingleMovie}></Route>
               <Route exact path="/filter" component={FilterMovies}></Route>
-              <Route exact path="/:id" component={SingleMovie}></Route>
             </MainGrid>
           </Switch>
         </Router>

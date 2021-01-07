@@ -8,14 +8,16 @@ import {
   Icon,
   Item,
   Text,
-  ItemTitle,
+  TextTitle,
 } from "./styles";
 //Utilities
 import imgApi from "utilities/ImgAPI";
 //Custom hooks
 import useSingleMovie from "hooks/useSingleMovie";
+//Components
+import Spinner from "components/Spinner";
 
-export default function SingleMovie({ match }) {
+const SingleMovie = ({ match }) => {
   const { params } = match;
   const { movie, loading } = useSingleMovie(params.id);
   const {
@@ -27,23 +29,31 @@ export default function SingleMovie({ match }) {
     title,
   } = movie;
 
-  return !loading ? (
+  return (
     <Container img={imgApi + backdrop_path}>
       <Content>
-        <Title>{title}</Title>
-        <Img src={imgApi + poster_path}></Img>
-        <List>
-          <Item>
-            Rating: <Icon>{vote_average}</Icon>
-          </Item>
-          <Item>Popularity: {popularity}</Item>
-          <Item>
-            <Text>
-              <ItemTitle>Overview:</ItemTitle> {overview}
-            </Text>
-          </Item>
-        </List>
+        {!loading ? (
+          <>
+            <Title>{title}</Title>
+            <Img src={imgApi + poster_path} />
+            <List>
+              <Item>
+                Rating: <Icon>{vote_average}</Icon>
+              </Item>
+              <Item>Popularity: {popularity}</Item>
+              <Item>
+                <Text>
+                  <TextTitle>Overview:</TextTitle> {overview}
+                </Text>
+              </Item>
+            </List>
+          </>
+        ) : (
+          <Spinner />
+        )}
       </Content>
     </Container>
-  ) : null;
-}
+  );
+};
+
+export default SingleMovie;

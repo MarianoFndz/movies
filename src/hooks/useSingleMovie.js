@@ -6,12 +6,12 @@ import { currentMovie } from "redux/actions/moviesAction";
 
 const useSingleMovie = (id) => {
   const dispatch = useDispatch();
+
   const loadCurrentMovie = () => {
     dispatch(currentMovie(id));
   };
 
   useEffect(() => {
-    console.log("SingleMovie");
     loadCurrentMovie();
   }, []);
 

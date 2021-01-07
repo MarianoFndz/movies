@@ -1,31 +1,35 @@
+//React
+import { memo, useEffect } from "react";
+//Styled components
 import { Top, MovieStyled, Img } from "./styles";
-import { useEffect, memo } from "react";
-
-import imgApi from "utilities/ImgAPI";
+//React router
 import { useHistory } from "react-router-dom";
+//Assets
+import imgApi from "utilities/ImgAPI";
 
-const Movie = ({ top, data }) => {
-  const { id, poster_path, vote_average } = data;
+const Movie = ({ id, top, data = {} }) => {
+  const { poster_path, vote_average } = data;
+  const history = useHistory();
+
+  const handleClick = () => {
+    history.push(`/movie/${id}`);
+  };
 
   useEffect(() => {
     console.log("Movie", id);
   });
 
-  const history = useHistory();
-
-  const handleClick = () => {
-    history.push(`/${id}`);
-  };
-
   return top ? (
     <Top rating={vote_average} onClick={handleClick}>
-      <Img src={imgApi + poster_path}></Img>
+      <Img src={imgApi + poster_path} alt=""></Img>
     </Top>
   ) : (
     <MovieStyled rating={vote_average} onClick={handleClick}>
-      <Img src={imgApi + poster_path}></Img>
+      <Img src={imgApi + poster_path} alt=""></Img>
     </MovieStyled>
   );
 };
 
-export default Movie;
+export default memo(Movie, (prevProps, nextProps) => {
+  return prevProps.id === nextProps.id;
+});

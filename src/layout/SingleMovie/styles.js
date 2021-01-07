@@ -9,6 +9,7 @@ export const Container = styled.div`
   background-image: url(${(props) => props.img});
   background-size: cover;
   padding: 1.5rem;
+  min-height: 100vh;
 `;
 
 export const Content = styled.div`
@@ -23,6 +24,7 @@ export const Content = styled.div`
   padding-top: 2rem;
   background-color: ${(props) => props.theme.primary};
   border-radius: 5px;
+  min-height: 80vh;
 `;
 
 export const Title = styled.h1`
@@ -48,6 +50,7 @@ export const Item = styled.li`
   display: flex;
   padding: 1rem;
   align-items: center;
+  color: ${(props) => props.theme.greyLight2};
 `;
 
 export const Icon = styled.span`
@@ -56,12 +59,13 @@ export const Icon = styled.span`
   border: solid 0.5rem ${(props) => props.theme.secondary};
   border-radius: 50%;
   margin-left: 2rem;
+  color: ${(props) => props.theme.secondary};
 `;
 
 export const Text = styled.p`
   font-size: 2rem;
 `;
 
-export const ItemTitle = styled.span`
+export const TextTitle = styled.span`
   font-size: 2.5rem;
 `;

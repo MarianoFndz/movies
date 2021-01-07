@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const InputText = styled.input`
+export const Input = styled.input`
   width: 40%;
   background-color: ${(props) => props.theme.greyLight1};
   padding: 0.7rem 2rem;
