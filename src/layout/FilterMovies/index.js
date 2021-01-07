@@ -1,6 +1,7 @@
 //Components
 import Spinner from "components/Spinner";
-import Movie from "components/Movie";
+import Movies from "components/Movies";
+import Next from "components/Next";
 //Hooks
 import useMovies from "hooks/useMovies";
 //Styled Components
@@ -10,21 +11,13 @@ export default function FilterMovies() {
   const { loading, movies } = useMovies();
 
   return (
-    <Container>
-      <Title>FILTER MOVIES</Title>
-      {loading ? (
-        <Spinner />
-      ) : (
-        movies.map((element, index) =>
-          element.poster_path ? (
-            index === 0 ? (
-              <Movie key={element.id} top={true} data={element}></Movie>
-            ) : (
-              <Movie key={element.id} top={false} data={element}></Movie>
-            )
-          ) : null
-        )
-      )}
-    </Container>
+    <>
+      <Next />
+      <Container>
+        <Title>FILTER MOVIES</Title>
+        {loading ? <Spinner /> : <Movies movies={movies} />}
+      </Container>
+      <Next />
+    </>
   );
 }

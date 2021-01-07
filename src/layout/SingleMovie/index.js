@@ -1,4 +1,4 @@
-import img from "./prueba.jpg";
+//Styled Components
 import {
   Container,
   Content,
@@ -10,35 +10,20 @@ import {
   Text,
   ItemTitle,
 } from "./styles";
-
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { currentMovie } from "redux/actions/moviesAction";
-
+//Utilities
 import imgApi from "utilities/ImgAPI";
+//Custom hooks
+import useSingleMovie from "hooks/useSingleMovie";
 
 export default function SingleMovie({ match }) {
   const { params } = match;
-  const dispatch = useDispatch();
-  const loadCurrentMovie = () => {
-    dispatch(currentMovie(params.id));
-  };
-
-  useEffect(() => {
-    console.log("SingleMovie");
-    loadCurrentMovie();
-  }, []);
-
-  const movie = useSelector((state) => state.movies.currentMovie);
-  const loading = useSelector((state) => state.movies.loading);
-
+  const { movie, loading } = useSingleMovie(params.id);
   const {
     poster_path,
     backdrop_path,
     vote_average,
+    popularity,
     overview,
-    original_title,
     title,
   } = movie;
 
@@ -51,6 +36,7 @@ export default function SingleMovie({ match }) {
           <Item>
             Rating: <Icon>{vote_average}</Icon>
           </Item>
+          <Item>Popularity: {popularity}</Item>
           <Item>
             <Text>
               <ItemTitle>Overview:</ItemTitle> {overview}

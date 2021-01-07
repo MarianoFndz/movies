@@ -17,8 +17,9 @@ export const Container = styled.div`
 
 export const Title = styled.h1`
   padding-bottom: 5vh;
-  grid-column: 1 / -1;
-  grid-row: 1 / 2;
   text-align: center;
   color: ${(props) => props.theme.secondary};
+
+  grid-column: 1 / -1;
+  grid-row: 1 / 2;
 `;
