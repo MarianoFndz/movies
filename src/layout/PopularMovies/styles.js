@@ -8,7 +8,6 @@ export const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   grid-template-rows: min-content;
-
   @media (max-width: 50rem) {
     grid-template-columns: 100%;
     padding: 1rem;

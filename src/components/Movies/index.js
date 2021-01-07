@@ -1,17 +1,10 @@
-//React
-import { useState, useEffect } from "react";
 //Components
 import Movie from "components/Movie";
 //redux
 import { useSelector } from "react-redux";
 
-const Movies = ({ movies }) => {
-  // const [movies, setMovies] = useState([]);
-  // const data = useSelector((state) => state.movies.movies);
-
-  // useEffect(() => {
-  //   setMovies(data);
-  // }, [data]);
+const Movies = () => {
+  const movies = useSelector((state) => state.movies.movies);
 
   return movies.map((element, index) =>
     element.poster_path ? (
@@ -21,6 +14,7 @@ const Movies = ({ movies }) => {
           top={true}
           id={element.id}
           data={element}
+          index={index}
         ></Movie>
       ) : (
         <Movie
@@ -28,6 +22,7 @@ const Movies = ({ movies }) => {
           top={false}
           id={element.id}
           data={element}
+          index={index}
         ></Movie>
       )
     ) : null

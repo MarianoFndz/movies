@@ -34,9 +34,9 @@ export function popularMovies(search, page, currentMovies = []) {
   };
 }
 
-export function filterMovies(data, page, currentMovies) {
+export function filterMovies(search, page, currentMovies) {
   return async (dispatch) => {
-    const { text, rating } = data;
+    const { text, rating } = search;
     console.log(page);
     dispatch(filterMoviesStart());
     const url = `https://api.themoviedb.org/3/search/movie?api_key=73faf0da9a32b7975953fed9a7fed103&language=en-US&query=${text}&page=${page}&include_adult=false`;

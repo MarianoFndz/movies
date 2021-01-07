@@ -10,6 +10,9 @@ const INITIAL_PAGE = 1;
 
 const useMovies = () => {
   const [page, setPage] = useState(INITIAL_PAGE);
+  const [currentSearch, setSearch] = useState({ rating: 0, text: "" });
+  const search = useSelector((state) => state.movies.search);
+  const movies = useSelector((state) => state.movies.movies);
 
   const dispatch = useDispatch();
   const location = useLocation();
@@ -20,22 +23,31 @@ const useMovies = () => {
   const loadFilterMovies = (search, page, movies) =>
     dispatch(filterMovies(search, page, movies));
 
-  const search = useSelector((state) => state.movies.search);
-
-  const movies = useSelector((state) => state.movies.movies);
-
-  const loadMovies = () => {
+  const loadNextMovies = () => {
     if (location.pathname === "/") loadPopularMovies(search, page, movies);
     else loadFilterMovies(search, page, movies);
   };
 
+  const loadMovies = () => {
+    if (location.pathname === "/")
+      loadPopularMovies(search, INITIAL_PAGE, movies);
+    else loadFilterMovies(search, INITIAL_PAGE, movies);
+  };
+
   useEffect(() => {
-    loadMovies();
+    setSearch(search);
+  }, []);
+
+  useEffect(() => {
+    if (currentSearch === search) {
+      loadNextMovies();
+    } else {
+      loadMovies();
+    }
+    setSearch(search);
   }, [page, search]);
 
-  const loading = useSelector((state) => state.movies.loading);
-  const data = { movies, loading, setPage, page };
-
+  const data = { setPage };
   return data;
 };
 

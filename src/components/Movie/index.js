@@ -1,5 +1,5 @@
 //React
-import { memo, useEffect } from "react";
+import { memo } from "react";
 //Styled components
 import { Top, MovieStyled, Img } from "./styles";
 //React router
@@ -7,17 +7,13 @@ import { useHistory } from "react-router-dom";
 //Assets
 import imgApi from "utilities/ImgAPI";
 
-const Movie = ({ id, top, data = {} }) => {
+const Movie = ({ index, id, top, data = {} }) => {
   const { poster_path, vote_average } = data;
   const history = useHistory();
 
   const handleClick = () => {
     history.push(`/movie/${id}`);
   };
-
-  useEffect(() => {
-    console.log("Movie", id);
-  });
 
   return top ? (
     <Top rating={vote_average} onClick={handleClick}>
@@ -31,5 +27,5 @@ const Movie = ({ id, top, data = {} }) => {
 };
 
 export default memo(Movie, (prevProps, nextProps) => {
-  return prevProps.id === nextProps.id;
+  return prevProps.id === nextProps.id && prevProps.index === nextProps.index;
 });

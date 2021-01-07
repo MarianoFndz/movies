@@ -1,31 +1,28 @@
+//React
+import { useEffect } from "react";
 //Components
 import Movies from "components/Movies";
-import Next from "components/Next";
 //Hooks
 import useMovies from "hooks/useMovies";
+import useNearScreen from "hooks/useNearScreen";
 //Styled Components
 import { Container, Title } from "./styles";
 
 const FilterMovies = () => {
-  const { movies, setPage, page } = useMovies();
+  const { setPage } = useMovies();
+  const { isNearScreen, fromRef } = useNearScreen({ distance: "200px" });
 
-  const handleNextPage = () => {
-    setPage((prevPage) => prevPage + 1);
-  };
-
-  const handlePrevPage = () => {
-    if (page === 1) return;
-    setPage((prevPage) => prevPage - 1);
-  };
+  useEffect(() => {
+    isNearScreen && setPage((prevPage) => prevPage + 1);
+  }, [isNearScreen]);
 
   return (
     <>
-      <Next handleNextPage={handleNextPage} handlePrevPage={handlePrevPage} />
       <Container>
         <Title>FILTER MOVIES</Title>
-        <Movies movies={movies} />
+        <Movies />
       </Container>
-      <Next handleNextPage={handleNextPage} handlePrevPage={handlePrevPage} />
+      <div ref={fromRef}></div>
     </>
   );
 };

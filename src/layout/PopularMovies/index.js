@@ -1,31 +1,30 @@
+//React
+import { useEffect, useState } from "react";
 //Components
 import Movies from "components/Movies";
-import Next from "components/Next";
 //Styled Components
 import { Container, Title } from "./styles";
 //Custom hooks
 import useMovies from "hooks/useMovies";
+import useNearScreen from "hooks/useNearScreen";
+import { useSelector } from "react-redux";
 
 const PopularMovies = () => {
-  const { movies, setPage, page } = useMovies();
+  const { isNearScreen, fromRef } = useNearScreen({ distance: "200px" });
 
-  const handleNextPage = () => {
-    setPage((prevPage) => prevPage + 1);
-  };
+  const { setPage } = useMovies();
 
-  const handlePrevPage = () => {
-    if (page === 1) return;
-    setPage((prevPage) => prevPage - 1);
-  };
+  useEffect(() => {
+    isNearScreen && setPage((prevPage) => prevPage + 1);
+  }, [isNearScreen]);
 
   return (
     <>
-      <Next handleNextPage={handleNextPage} handlePrevPage={handlePrevPage} />
       <Container>
         <Title>POPULAR MOVIES</Title>
-        <Movies movies={movies} />
+        <Movies />
       </Container>
-      <Next handleNextPage={handleNextPage} handlePrevPage={handlePrevPage} />
+      <div ref={fromRef}></div>
     </>
   );
 };
