@@ -12,12 +12,9 @@ const Stars = ({ setSearch, search }) => {
   const stars = [2, 4, 6, 8, 10];
   const [ratingSelected, setRatingSelected] = useState(0);
 
-  const checkerRatingSelected = useCallback(
-    (id) => {
-      ratingSelected === id ? setRatingSelected(0) : setRatingSelected(id);
-    },
-    [ratingSelected]
-  );
+  const checkerRatingSelected = (id) => {
+    ratingSelected === id ? setRatingSelected(0) : setRatingSelected(id);
+  };
 
   useEffect(() => {
     setSearch({ ...search, rating: ratingSelected });

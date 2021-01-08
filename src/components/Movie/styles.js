@@ -59,6 +59,7 @@ export const MovieStyled = styled.div`
   padding: 1rem;
   position: relative;
   min-height: 20rem;
+
   &::before {
     content: "${(props) => props.rating}";
     font-size: 2rem;
@@ -86,4 +87,8 @@ export const Img = styled.img`
   height: 100%;
   border-radius: 5px;
   object-fit: cover;
+  transition: all 0.2s;
+  &:hover {
+    filter: brightness(0.7);
+  }
 `;
