@@ -46,9 +46,7 @@ const useMovies = () => {
       setSearch(search);
     }
   }, [page, search]);
-
-  const data = { setPage };
-  return data;
+  return { setPage };
 };
 
 export default useMovies;
