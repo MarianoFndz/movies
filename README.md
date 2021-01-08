@@ -9,8 +9,12 @@
   - Filters the movies by rating
   - Clicking on a movie opens more information about the movie 
   - Provides of an infinite scroll that loads more movies
+  
+## API "The Movie DB"
 
+For this proyect was used an API made by The Movie DB - Reference: https://www.themoviedb.org/documentation/api-
 
+  
 ### Installation
 
 Movies requires [Node.js](https://nodejs.org/) v4+ to run.
