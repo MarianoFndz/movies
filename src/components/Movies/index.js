@@ -4,28 +4,27 @@ import Movie from "components/Movie";
 import { useSelector } from "react-redux";
 
 const Movies = () => {
-  const movies = useSelector((state) => state.movies.movies);
+  let movies = useSelector((state) => state.movies.movies);
+  movies = movies.filter((element) => element.poster_path);
 
   return movies.map((element, index) =>
-    element.poster_path ? (
-      index === 0 ? (
-        <Movie
-          key={element.id}
-          top={true}
-          id={element.id}
-          data={element}
-          index={index}
-        ></Movie>
-      ) : (
-        <Movie
-          key={element.id}
-          top={false}
-          id={element.id}
-          data={element}
-          index={index}
-        ></Movie>
-      )
-    ) : null
+    index === 0 ? (
+      <Movie
+        key={element.id}
+        top={true}
+        id={element.id}
+        data={element}
+        index={index}
+      ></Movie>
+    ) : (
+      <Movie
+        key={element.id}
+        top={false}
+        id={element.id}
+        data={element}
+        index={index}
+      ></Movie>
+    )
   );
 };
 
