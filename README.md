@@ -1,15 +1,15 @@
 # Movies
 
-"Movies" is an aplication that is exclusively focus in search of movies
+"Movies" is an aplication that is exclusively focus in movie searching
 You can view the aplication in this link: https://movies-marianofernandez.netlify.app/
 
-# What it can does?
+# What can it do?
 
-  - Upon opening the web application, it provide a list of movies suggested and is sorted by popularity 
-  - Searchs movies by query that the users was writed in search bar
+  - Upon opening the web application, it provides a list of movies suggested and is sorted by popularity 
+  - Search movies by the query that the users writed in the search bar
   - Filters the movies by rating
   - Clicking on a movie opens more information about the movie 
-  - Provides of a infinite scroll that loading more movies
+  - Provides of an infinite scroll that loads more movies
 
 
 ### Installation
@@ -24,7 +24,7 @@ $ npm install
 
 ### Development
 
-For runs the app in the development mode:
+To run the app in development mode:
 ```sh
 $ npm start
 ```
@@ -32,7 +32,7 @@ Open http://localhost:3000 to view it in the browser.
 
 #### Building
 
-For do build of application:
+For the building of application:
 ```sh
 $ npm run build 
 ```
