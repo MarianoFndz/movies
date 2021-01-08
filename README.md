@@ -10,9 +10,9 @@
   - Clicking on a movie opens more information about the movie 
   - Provides of an infinite scroll that loads more movies
   
-## API "The Movie DB"
+## API
 
-For this proyect was used an API made by The Movie DB - Reference: https://www.themoviedb.org/documentation/api-
+For this proyect was used an API made by "The Movie DB" - Reference: https://www.themoviedb.org/documentation/api-
 
   
 ### Installation
