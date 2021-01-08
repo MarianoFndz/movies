@@ -11,6 +11,7 @@ export const Container = styled.div`
   @media (max-width: 50rem) {
     grid-template-columns: 100%;
     padding: 1rem;
+    min-height: 200vh;
   }
 `;
 

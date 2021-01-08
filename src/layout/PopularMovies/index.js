@@ -15,7 +15,7 @@ const PopularMovies = () => {
 
   useEffect(() => {
     isNearScreen && setPage((prevPage) => prevPage + 1);
-  }, [isNearScreen, setPage]);
+  }, [isNearScreen]);
 
   return (
     <>
