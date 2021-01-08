@@ -22,14 +22,28 @@ const Search = () => {
 
   const setSearchMovie = () => dispatch(searchMovie(search));
 
-  const handleClick = () => {
+  const setSearchRedux = () => {
     setSearchMovie();
     search.text ? history.push("/filter") : history.push("/");
   };
 
+  const handleClick = () => {
+    setSearchRedux();
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      setSearchRedux();
+    }
+  };
+
   return (
     <Container>
-      <Input setSearch={setSearch} search={search} />
+      <Input
+        setSearch={setSearch}
+        search={search}
+        handleKeyPress={handleKeyPress}
+      />
       <Stars setSearch={setSearch} search={search} />
       <Button handleClick={handleClick} />
     </Container>

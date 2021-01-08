@@ -1,7 +1,7 @@
 //Styled components
 import { Input } from "./styles";
 
-export default function InputText({ setSearch, search }) {
+export default function InputText({ setSearch, search, handleKeypress }) {
   const { text } = search;
 
   const handleChange = (e) => {
@@ -14,6 +14,7 @@ export default function InputText({ setSearch, search }) {
       placeholder="Movie..."
       value={text}
       onChange={handleChange}
+      onKeyPress={handleKeypress}
     />
   );
 }
