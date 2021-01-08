@@ -4,7 +4,9 @@ export const Top = styled.div`
   padding: 1rem;
   grid-column: 1 / span 2;
   grid-row: 2 / span 2;
-
+  @media (max-width: 50rem) {
+    min-height: 60vh;
+  }
   @media (max-width: 50rem) {
     grid-column: auto;
     grid-row: auto;
@@ -59,6 +61,9 @@ export const MovieStyled = styled.div`
   padding: 1rem;
   position: relative;
   min-height: 20rem;
+  @media (max-width: 50rem) {
+    min-height: 60vh;
+  }
 
   &::before {
     content: "${(props) => props.rating}";
