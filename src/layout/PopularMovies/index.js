@@ -1,5 +1,5 @@
 //React
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 //Components
 import Movies from "components/Movies";
 //Styled Components
@@ -15,7 +15,7 @@ const PopularMovies = () => {
 
   useEffect(() => {
     isNearScreen && setPage((prevPage) => prevPage + 1);
-  }, [isNearScreen]);
+  }, [isNearScreen, setPage]);
 
   return (
     <>

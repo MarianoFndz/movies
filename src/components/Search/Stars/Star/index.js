@@ -1,5 +1,5 @@
 //React
-import { memo, useEffect } from "react";
+import { memo } from "react";
 //Styled components
 import { ImgStar } from "./styled";
 

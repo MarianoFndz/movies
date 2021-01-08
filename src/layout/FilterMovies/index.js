@@ -14,7 +14,7 @@ const FilterMovies = () => {
 
   useEffect(() => {
     isNearScreen && setPage((prevPage) => prevPage + 1);
-  }, [isNearScreen]);
+  }, [isNearScreen, setPage]);
 
   return (
     <>

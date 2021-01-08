@@ -6,7 +6,7 @@ import { Container } from "./styles";
 const Button = ({ handleClick }) => {
   return (
     <Container onClick={handleClick}>
-      <img src={iconSearch}></img>
+      <img src={iconSearch} alt=""></img>
     </Container>
   );
 };
