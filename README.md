@@ -6,7 +6,7 @@ You can view the aplication in this link: https://movies-marianofernandez.netlif
 # What can it do?
 
   - Upon opening the web application, it provides a list of movies suggested and is sorted by popularity 
-  - Search movies by the query that the users writed in the search bar
+  - Search movies by the query that users writed in the search bar
   - Filters the movies by rating
   - Clicking on a movie opens more information about the movie 
   - Provides of an infinite scroll that loads more movies
