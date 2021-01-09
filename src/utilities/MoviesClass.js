@@ -1,7 +1,6 @@
-import { currentMovie } from "redux/actions/moviesAction";
 import { isRequestSucces } from "utilities/getMoviesAPI";
 
-class MoviesFactory {
+class Movies {
   constructor(data, dispatchSucces, dispatchError) {
     const { response, currentMovies, movies, page, search } = data;
     this.text = search.text;
@@ -83,4 +82,4 @@ class MoviesFactory {
 //   return obj;
 // };
 
-export default MoviesFactory;
+export default Movies;

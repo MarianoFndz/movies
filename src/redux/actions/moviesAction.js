@@ -11,7 +11,7 @@ import {
   GET_CURRENT_MOVIE_ERROR,
 } from "redux/types";
 import getMoviesAPI, { isRequestSucces } from "utilities/getMoviesAPI";
-import MoviesFactory from "utilities/MoviesFactory";
+import MoviesClass from "utilities/MoviesClass";
 
 export function popularMovies(data) {
   return async (dispatch) => {
@@ -27,7 +27,7 @@ export function popularMovies(data) {
       movies,
     };
 
-    const popularMovies = new MoviesFactory(
+    const popularMovies = new MoviesClass(
       data,
       (movies) => {
         dispatch(popularMoviesSucces(movies));
@@ -59,7 +59,7 @@ export function filterMovies(data) {
       movies,
     };
 
-    const filterMovies = new MoviesFactory(
+    const filterMovies = new MoviesClass(
       data,
       (movies) => dispatch(filterMoviesSucces(movies)),
       (movies) => dispatch(filterrMoviesError(movies))
