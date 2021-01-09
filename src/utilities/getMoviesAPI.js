@@ -4,4 +4,8 @@ const getMoviesAPI = function (url) {
     .catch(false);
 };
 
+export const isRequestSucces = function (response, firstFunc, secdFunc) {
+  response ? firstFunc() : secdFunc();
+};
+
 export default getMoviesAPI;

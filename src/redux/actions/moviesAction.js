@@ -10,52 +10,8 @@ import {
   GET_CURRENT_MOVIE_SUCCES,
   GET_CURRENT_MOVIE_ERROR,
 } from "redux/types";
-import getMoviesAPI from "utilities/getMoviesAPI";
-
-const isRequestSucces = function (response, firstFunc, secdFunc) {
-  response ? firstFunc() : secdFunc();
-};
-
-const MoviesFactory = (dispatchSucces, dispatchError) => {
-  const obj = {
-    response: "",
-    page: 0,
-    rating: 0,
-    text: "",
-    currentMovies: [],
-    movies: [],
-    dispatchSucces: dispatchSucces,
-    dispatchError: dispatchError,
-    filterByRating: function () {
-      if (this.rating !== 0) {
-        this.movies = this.movies.filter(
-          (element) =>
-            element.vote_average <= this.rating &&
-            element.vote_average >= this.rating - 2
-        );
-      }
-    },
-    addPage: function () {
-      if (this.page > 1) {
-        this.movies = this.currentMovies.concat(this.movies);
-        this.dispatchSucces(this.movies);
-      } else this.dispatchSucces(this.movies);
-    },
-    isRequestSucces: function () {
-      isRequestSucces(
-        this.response,
-        () => {
-          this.filterByRating();
-          this.addPage();
-        },
-        () => {
-          this.dispatchError();
-        }
-      );
-    },
-  };
-  return obj;
-};
+import getMoviesAPI, { isRequestSucces } from "utilities/getMoviesAPI";
+import MoviesFactory from "utilities/MoviesFactory";
 
 export function popularMovies({ rating, text }, page, currentMovies = []) {
   return async (dispatch) => {
@@ -91,12 +47,8 @@ export function filterMovies({ text, rating }, page, currentMovies) {
     let movies = response.results;
 
     let filterMovies = MoviesFactory(
-      (movies) => {
-        dispatch(filterMoviesSucces(movies));
-      },
-      (movies) => {
-        dispatch(filterrMoviesError(movies));
-      }
+      (movies) => dispatch(filterMoviesSucces(movies)),
+      (movies) => dispatch(filterrMoviesError(movies))
     );
 
     filterMovies.rating = rating;
@@ -113,12 +65,13 @@ export function currentMovie(id) {
   return async (dispatch) => {
     dispatch(currentMoviesStart());
     const url = ` https://api.themoviedb.org/3/movie/${id}?api_key=73faf0da9a32b7975953fed9a7fed103&language=en-US`;
-    const response = await fetch(url);
-    const movie = await response.json();
+    const response = await getMoviesAPI(url);
 
-    if (response.status === 200) {
-      dispatch(currentMoviesSucces(movie));
-    } else dispatch(currentMoviesError());
+    isRequestSucces(
+      response,
+      () => dispatch(currentMoviesSucces(response)),
+      () => dispatch(currentMoviesError())
+    );
   };
 }
 
