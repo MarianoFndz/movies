@@ -10,52 +10,102 @@ import {
   GET_CURRENT_MOVIE_SUCCES,
   GET_CURRENT_MOVIE_ERROR,
 } from "redux/types";
+import getMoviesAPI from "utilities/getMoviesAPI";
 
-export function popularMovies(search, page, currentMovies = []) {
-  return async (dispatch) => {
-    const { rating } = search;
-    dispatch(popularMoviesStart());
-    const url = `https://api.themoviedb.org/3/discover/movie?api_key=73faf0da9a32b7975953fed9a7fed103&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}`;
-    const response = await fetch(url);
-    const responseJson = await response.json();
-    let movies = responseJson.results;
-    if (response.status === 200) {
-      if (rating !== 0) {
-        movies = movies.filter(
+const isRequestSucces = function (response, firstFunc, secdFunc) {
+  response ? firstFunc() : secdFunc();
+};
+
+const MoviesFactory = (dispatchSucces, dispatchError) => {
+  const obj = {
+    response: "",
+    page: 0,
+    rating: 0,
+    text: "",
+    currentMovies: [],
+    movies: [],
+    dispatchSucces: dispatchSucces,
+    dispatchError: dispatchError,
+    filterByRating: function () {
+      if (this.rating !== 0) {
+        this.movies = this.movies.filter(
           (element) =>
-            element.vote_average <= rating && element.vote_average >= rating - 2
+            element.vote_average <= this.rating &&
+            element.vote_average >= this.rating - 2
         );
       }
-      if (page > 1) {
-        movies = currentMovies.concat(movies);
+    },
+    addPage: function () {
+      if (this.page > 1) {
+        this.movies = this.currentMovies.concat(this.movies);
+        this.dispatchSucces(this.movies);
+      } else this.dispatchSucces(this.movies);
+    },
+    isRequestSucces: function () {
+      isRequestSucces(
+        this.response,
+        () => {
+          this.filterByRating();
+          this.addPage();
+        },
+        () => {
+          this.dispatchError();
+        }
+      );
+    },
+  };
+  return obj;
+};
+
+export function popularMovies({ rating, text }, page, currentMovies = []) {
+  return async (dispatch) => {
+    dispatch(popularMoviesStart());
+    const url = `https://api.themoviedb.org/3/discover/movie?api_key=73faf0da9a32b7975953fed9a7fed103&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}`;
+    const response = await getMoviesAPI(url);
+    let movies = response.results;
+    const popularMovies = MoviesFactory(
+      (movies) => {
         dispatch(popularMoviesSucces(movies));
-      } else dispatch(popularMoviesSucces(movies));
-    } else dispatch(popularMoviesError());
+      },
+      (movies) => {
+        dispatch(popularMoviesError(movies));
+      }
+    );
+
+    popularMovies.rating = rating;
+    popularMovies.text = text;
+    popularMovies.page = page;
+    popularMovies.currentMovies = currentMovies;
+    popularMovies.response = response;
+    popularMovies.movies = movies;
+    popularMovies.isRequestSucces();
   };
 }
 
-export function filterMovies(search, page, currentMovies) {
+export function filterMovies({ text, rating }, page, currentMovies) {
   return async (dispatch) => {
-    const { text, rating } = search;
     console.log(page);
     dispatch(filterMoviesStart());
     const url = `https://api.themoviedb.org/3/search/movie?api_key=73faf0da9a32b7975953fed9a7fed103&language=en-US&query=${text}&page=${page}&include_adult=false`;
-    const response = await fetch(url);
-    const responseJson = await response.json();
-    let movies = responseJson.results;
+    const response = await getMoviesAPI(url);
+    let movies = response.results;
 
-    if (response.status === 200) {
-      if (rating !== 0)
-        movies = movies.filter(
-          (element) =>
-            element.vote_average <= rating && element.vote_average >= rating - 2
-        );
-      if (page > 1) {
-        movies = currentMovies.concat(movies);
+    let filterMovies = MoviesFactory(
+      (movies) => {
         dispatch(filterMoviesSucces(movies));
+      },
+      (movies) => {
+        dispatch(filterrMoviesError(movies));
       }
-      dispatch(filterMoviesSucces(movies));
-    } else dispatch(filterrMoviesError());
+    );
+
+    filterMovies.rating = rating;
+    filterMovies.text = text;
+    filterMovies.page = page;
+    filterMovies.currentMovies = currentMovies;
+    filterMovies.response = response;
+    filterMovies.movies = movies;
+    filterMovies.isRequestSucces();
   };
 }
 

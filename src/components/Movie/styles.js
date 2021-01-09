@@ -62,7 +62,7 @@ export const MovieStyled = styled.div`
   position: relative;
   min-height: 20rem;
   @media (max-width: 50rem) {
-    min-height: 60vh;
+    min-height: 65vh;
   }
 
   &::before {
