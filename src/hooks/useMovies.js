@@ -8,30 +8,18 @@ import { useLocation } from "react-router-dom";
 
 const INITIAL_PAGE = 1;
 
-const useMovies = () => {
+const useMovies = (loadMoviesAction) => {
   const [page, setPage] = useState(INITIAL_PAGE);
   const [currentSearch, setSearch] = useState({ rating: 0, text: "" });
   const search = useSelector((state) => state.movies.search);
-  const movies = useSelector((state) => state.movies.movies);
-
-  const dispatch = useDispatch();
-  const location = useLocation();
-
-  const loadPopularMovies = (search, page, movies) =>
-    dispatch(popularMovies(search, page, movies));
-
-  const loadFilterMovies = (search, page, movies) =>
-    dispatch(filterMovies(search, page, movies));
+  const currentMovies = useSelector((state) => state.movies.movies);
 
   const loadNextMovies = () => {
-    if (location.pathname === "/") loadPopularMovies(search, page, movies);
-    else loadFilterMovies(search, page, movies);
+    loadMoviesAction({ search, page, currentMovies });
   };
 
   const loadMovies = () => {
-    if (location.pathname === "/")
-      loadPopularMovies(search, INITIAL_PAGE, movies);
-    else loadFilterMovies(search, INITIAL_PAGE, movies);
+    loadMoviesAction({ search, INITIAL_PAGE, currentMovies });
   };
 
   useEffect(() => {
@@ -46,7 +34,7 @@ const useMovies = () => {
       setSearch(search);
     }
   }, [page, search]);
-  return { setPage };
+  return { setPage, search };
 };
 
 export default useMovies;

@@ -13,13 +13,22 @@ import {
 import getMoviesAPI, { isRequestSucces } from "utilities/getMoviesAPI";
 import MoviesFactory from "utilities/MoviesFactory";
 
-export function popularMovies({ rating, text }, page, currentMovies = []) {
+export function popularMovies(data) {
   return async (dispatch) => {
     dispatch(popularMoviesStart());
+    const { page } = data;
     const url = `https://api.themoviedb.org/3/discover/movie?api_key=73faf0da9a32b7975953fed9a7fed103&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}`;
     const response = await getMoviesAPI(url);
-    let movies = response.results;
-    const popularMovies = MoviesFactory(
+    const movies = response.results;
+
+    data = {
+      ...data,
+      response,
+      movies,
+    };
+
+    const popularMovies = new MoviesFactory(
+      data,
       (movies) => {
         dispatch(popularMoviesSucces(movies));
       },
@@ -28,36 +37,35 @@ export function popularMovies({ rating, text }, page, currentMovies = []) {
       }
     );
 
-    popularMovies.rating = rating;
-    popularMovies.text = text;
-    popularMovies.page = page;
-    popularMovies.currentMovies = currentMovies;
-    popularMovies.response = response;
-    popularMovies.movies = movies;
-    popularMovies.isRequestSucces();
+    popularMovies.pushMoviesToState();
   };
 }
 
-export function filterMovies({ text, rating }, page, currentMovies) {
+export function filterMovies(data) {
   return async (dispatch) => {
-    console.log(page);
     dispatch(filterMoviesStart());
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=73faf0da9a32b7975953fed9a7fed103&language=en-US&query=${text}&page=${page}&include_adult=false`;
-    const response = await getMoviesAPI(url);
-    let movies = response.results;
+    const { page, search } = data;
+    const { text } = search;
 
-    let filterMovies = MoviesFactory(
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=73faf0da9a32b7975953fed9a7fed103&language=en-US&query=${text}&page=${page}&include_adult=false`;
+
+    const response = await getMoviesAPI(url);
+
+    const movies = response.results;
+
+    data = {
+      ...data,
+      response,
+      movies,
+    };
+
+    const filterMovies = new MoviesFactory(
+      data,
       (movies) => dispatch(filterMoviesSucces(movies)),
       (movies) => dispatch(filterrMoviesError(movies))
     );
 
-    filterMovies.rating = rating;
-    filterMovies.text = text;
-    filterMovies.page = page;
-    filterMovies.currentMovies = currentMovies;
-    filterMovies.response = response;
-    filterMovies.movies = movies;
-    filterMovies.isRequestSucces();
+    filterMovies.pushMoviesToState();
   };
 }
 

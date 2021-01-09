@@ -7,14 +7,21 @@ import useMovies from "hooks/useMovies";
 import useNearScreen from "hooks/useNearScreen";
 //Styled Components
 import { Container, Title } from "./styles";
+//Redux
+import { useDispatch } from "react-redux";
+import { filterMovies } from "redux/actions/moviesAction";
 
 const FilterMovies = () => {
-  const { setPage } = useMovies();
+  const dispatch = useDispatch();
   const { isNearScreen, fromRef } = useNearScreen({ distance: "200px" });
 
+  const { setPage, search } = useMovies((data) => {
+    dispatch(filterMovies(data));
+  });
+
   useEffect(() => {
-    isNearScreen && setPage((prevPage) => prevPage + 1);
-  }, [isNearScreen, setPage]);
+    isNearScreen && search.text && setPage((prevPage) => prevPage + 1);
+  }, [isNearScreen]);
 
   return (
     <>
