@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Top = styled.div`
   padding: 1rem;
@@ -92,8 +92,14 @@ export const Img = styled.img`
   height: 100%;
   border-radius: 5px;
   object-fit: cover;
-  transition: all 0.2s;
+  transition: all 0.3s;
   &:hover {
     filter: brightness(0.7);
   }
+
+  ${(props) => props.addCSS}
+`;
+
+export const blur = css`
+  filter: blur(10px);
 `;
