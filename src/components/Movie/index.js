@@ -5,7 +5,7 @@ import { Top, MovieStyled, Img, blur } from "./styles";
 //React router
 import { useHistory } from "react-router-dom";
 //Assets
-import imgApi from "utilities/ImgAPI";
+import { URL_IMG_API_1280 as imgApi } from "utilities/ImgAPI";
 //Components
 import Spinner from "components/Spinner";
 
@@ -21,6 +21,7 @@ const Movie = ({ id, top, data }) => {
   const handleOnLoad = () => {
     setImageStatus(true);
   };
+  console.log(data);
 
   return top ? (
     <Top rating={vote_average} onClick={handleClick}>

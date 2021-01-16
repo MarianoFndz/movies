@@ -11,7 +11,7 @@ import {
   TextTitle,
 } from "./styles";
 //Utilities
-import imgApi from "utilities/ImgAPI";
+import { URL_IMG_API_1280 as imgApi } from "utilities/ImgAPI";
 //Custom hooks
 import useSingleMovie from "hooks/useSingleMovie";
 //Components

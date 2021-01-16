@@ -3,7 +3,7 @@ import { useEffect } from "react";
 //Components
 import Movies from "components/Movies";
 //Styled Components
-import { Container, Title } from "./styles";
+import { Content, Title, Container } from "./styles";
 //Custom hooks
 import useMovies from "hooks/useMovies";
 import useNearScreen from "hooks/useNearScreen";
@@ -24,8 +24,10 @@ const PopularMovies = () => {
   return (
     <>
       <Container>
-        <Title>POPULAR MOVIES</Title>
-        <Movies />
+        <Content>
+          <Title>POPULAR MOVIES</Title>
+          <Movies />
+        </Content>
       </Container>
       <div ref={fromRef}></div>
     </>
