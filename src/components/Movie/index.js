@@ -5,7 +5,7 @@ import { Top, MovieStyled, Img, blur } from "./styles";
 //React router
 import { useHistory } from "react-router-dom";
 //Assets
-import { URL_IMG_API_1280 as imgApi } from "utilities/ImgAPI";
+import { URL_IMG_API_500 as imgApi } from "utilities/ImgAPI";
 //Components
 import Spinner from "components/Spinner";
 
