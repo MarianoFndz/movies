@@ -6,7 +6,7 @@ import Movies from "components/Movies";
 import useMovies from "hooks/useMovies";
 import useNearScreen from "hooks/useNearScreen";
 //Styled Components
-import { Container, Title } from "./styles";
+import { Container, Title, Content } from "./styles";
 //Redux
 import { useDispatch } from "react-redux";
 import { filterMovies } from "redux/actions/moviesAction";
@@ -26,8 +26,10 @@ const FilterMovies = () => {
   return (
     <>
       <Container>
-        <Title>FILTER MOVIES</Title>
-        <Movies />
+        <Content>
+          <Title>FILTER MOVIES</Title>
+          <Movies />
+        </Content>
       </Container>
       <div ref={fromRef}></div>
     </>
