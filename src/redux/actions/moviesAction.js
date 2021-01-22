@@ -69,6 +69,13 @@ export function filterMovies(data) {
   };
 }
 
+export function resetMovies() {
+  return async (dispatch) => {
+    dispatch(popularMoviesStart());
+    dispatch(popularMoviesSucces([]));
+  };
+}
+
 export function currentMovie(id) {
   return async (dispatch) => {
     dispatch(currentMoviesStart());

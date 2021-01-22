@@ -2,13 +2,18 @@
 import { useEffect, useState } from "react";
 //React Redux
 import { useDispatch, useSelector } from "react-redux";
-import { popularMovies, filterMovies } from "redux/actions/moviesAction";
+import {
+  popularMovies,
+  filterMovies,
+  resetMovies,
+} from "redux/actions/moviesAction";
 //React router
 import { useLocation } from "react-router-dom";
 
 const INITIAL_PAGE = 1;
 
 const useMovies = (loadMoviesAction) => {
+  const dispatch = useDispatch();
   const [page, setPage] = useState(INITIAL_PAGE);
   const [currentSearch, setSearch] = useState({ rating: 0, text: "" });
   const search = useSelector((state) => state.movies.search);
@@ -24,6 +29,10 @@ const useMovies = (loadMoviesAction) => {
 
   useEffect(() => {
     setSearch(search);
+
+    return () => {
+      dispatch(resetMovies());
+    };
   }, []);
 
   useEffect(() => {
