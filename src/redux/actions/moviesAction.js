@@ -138,6 +138,11 @@ const currentMoviesError = () => ({
   payload: true,
 });
 
+export const resetCurrentMovie = (response) => ({
+  type: GET_CURRENT_MOVIE_SUCCES,
+  payload: "",
+});
+
 //======= SEARCH MOVIE ================
 
 export const searchMovie = (data) => ({

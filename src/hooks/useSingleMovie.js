@@ -2,17 +2,24 @@
 import { useEffect } from "react";
 //Redux
 import { useSelector, useDispatch } from "react-redux";
-import { currentMovie } from "redux/actions/moviesAction";
+import { currentMovie, resetCurrentMovie } from "redux/actions/moviesAction";
 
 const useSingleMovie = (id) => {
   const dispatch = useDispatch();
 
-  const loadCurrentMovie = () => {
+  const loadingCurrentMovie = () => {
     dispatch(currentMovie(id));
   };
 
+  const cleaningStateOfCurrentMovie = () => {
+    dispatch(resetCurrentMovie());
+  };
+
   useEffect(() => {
-    loadCurrentMovie();
+    loadingCurrentMovie();
+    return () => {
+      cleaningStateOfCurrentMovie();
+    };
   }, []);
 
   const movie = useSelector((state) => state.movies.currentMovie);

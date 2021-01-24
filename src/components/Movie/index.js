@@ -14,10 +14,6 @@ const Movie = ({ id, top, data }) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const history = useHistory();
 
-  useEffect(() => {
-    console.log(isImageLoaded);
-  });
-
   //Functions
   const renderSpinnerWhileLoading = () => {
     return isImageLoaded ? null : <Spinner />;

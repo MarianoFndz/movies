@@ -9,6 +9,7 @@ import {
   Item,
   Text,
   TextTitle,
+  blur,
 } from "./styles";
 //Utilities
 import { URL_IMG_API_1280 as imgApi } from "utilities/ImgAPI";
@@ -16,10 +17,14 @@ import { URL_IMG_API_1280 as imgApi } from "utilities/ImgAPI";
 import useSingleMovie from "hooks/useSingleMovie";
 //Components
 import Spinner from "components/Spinner";
+//React
+import { useState } from "react";
 
 const SingleMovie = ({ match }) => {
   const { params } = match;
-  const { movie, loading } = useSingleMovie(params.id);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+
+  const { movie } = useSingleMovie(params.id);
   const {
     poster_path,
     backdrop_path,
@@ -29,28 +34,36 @@ const SingleMovie = ({ match }) => {
     title,
   } = movie;
 
+  //Functions
+  const applyBlurWhileLoading = () => {
+    return isImageLoaded ? null : blur;
+  };
+
+  //Handlers
+  const handleOnLoad = () => {
+    setIsImageLoaded(true);
+  };
+
   return (
-    <Container img={imgApi + backdrop_path}>
+    <Container
+      img={imgApi + backdrop_path}
+      addCSS={applyBlurWhileLoading()}
+      onLoad={handleOnLoad}
+    >
       <Content>
-        {!loading ? (
-          <>
-            <Title>{title}</Title>
-            <Img src={imgApi + poster_path} />
-            <List>
-              <Item>
-                Rating: <Icon>{vote_average}</Icon>
-              </Item>
-              <Item>Popularity: {popularity}</Item>
-              <Item>
-                <Text>
-                  <TextTitle>Overview:</TextTitle> {overview}
-                </Text>
-              </Item>
-            </List>
-          </>
-        ) : (
-          <Spinner />
-        )}
+        <Title>{title}</Title>
+        <Img src={imgApi + poster_path} />
+        <List>
+          <Item>
+            Rating: <Icon>{vote_average}</Icon>
+          </Item>
+          <Item>Popularity: {popularity}</Item>
+          <Item>
+            <Text>
+              <TextTitle>Overview:</TextTitle> {overview}
+            </Text>
+          </Item>
+        </List>
       </Content>
     </Container>
   );

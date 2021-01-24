@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
@@ -10,6 +10,9 @@ export const Container = styled.div`
   background-size: cover;
   padding: 1.5rem;
   min-height: 100vh;
+  transition: all 0.3s;
+
+  ${(props) => props.addCSS}
 `;
 
 export const Content = styled.div`
@@ -37,6 +40,7 @@ export const Img = styled.img`
   width: 90%;
   object-fit: cover;
   border-radius: 5px;
+  min-height: 40vh;
 `;
 
 export const List = styled.ul`
@@ -68,4 +72,8 @@ export const Text = styled.p`
 
 export const TextTitle = styled.span`
   font-size: 2.5rem;
+`;
+
+export const blur = css`
+  filter: blur(5px);
 `;
