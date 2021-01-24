@@ -1,5 +1,5 @@
 //React
-import { memo, useState } from "react";
+import { memo, useState, useEffect } from "react";
 //Styled components
 import { Top, MovieStyled, Img, blur } from "./styles";
 //React router
@@ -11,17 +11,36 @@ import Spinner from "components/Spinner";
 
 const Movie = ({ id, top, data }) => {
   const { poster_path, vote_average } = data;
-  const [imageStatus, setImageStatus] = useState(false);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
   const history = useHistory();
 
-  const handleClick = () => {
+  useEffect(() => {
+    console.log(isImageLoaded);
+  });
+
+  //Functions
+  const renderSpinnerWhileLoading = () => {
+    return isImageLoaded ? null : <Spinner />;
+  };
+
+  const applyBlurWhileLoading = () => {
+    return isImageLoaded ? null : blur;
+  };
+
+  const redirectToPageOfMovie = () => {
     history.push(`/movie/${id}`);
   };
 
-  const handleOnLoad = () => {
-    setImageStatus(true);
+  //Handlers
+  const handleClick = () => {
+    redirectToPageOfMovie();
   };
-  console.log(data);
+
+  const handleOnLoad = () => {
+    setIsImageLoaded(true);
+  };
+
+  //
 
   return top ? (
     <Top rating={vote_average} onClick={handleClick}>
@@ -29,9 +48,9 @@ const Movie = ({ id, top, data }) => {
         src={imgApi + poster_path}
         alt=""
         onLoad={handleOnLoad}
-        addCSS={imageStatus || blur}
+        addCSS={applyBlurWhileLoading()}
       ></Img>
-      {imageStatus || <Spinner />}
+      {renderSpinnerWhileLoading()}
     </Top>
   ) : (
     <MovieStyled rating={vote_average} onClick={handleClick}>
@@ -39,9 +58,9 @@ const Movie = ({ id, top, data }) => {
         src={imgApi + poster_path}
         alt=""
         onLoad={handleOnLoad}
-        addCSS={imageStatus || blur}
+        addCSS={applyBlurWhileLoading()}
       ></Img>
-      {imageStatus || <Spinner />}
+      {renderSpinnerWhileLoading()}
     </MovieStyled>
   );
 };
