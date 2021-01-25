@@ -1,6 +1,7 @@
 # Movies
 
-"Movies" is an aplication that is exclusively focus in movie searching. You can view the aplication in this link: https://movies-marianofernandez.netlify.app/
+"Movies" is an aplication that is exclusively focus in movie searching. You can view the aplication in this link: https://movies-marianofernandez.netlify.app/  or 
+https://movies-marianofndz.vercel.app
 
 ## What can it do?
 
