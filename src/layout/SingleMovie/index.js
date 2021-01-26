@@ -10,6 +10,8 @@ import {
   Text,
   TextTitle,
   blur,
+  ImgBackground,
+  ContainerImg,
 } from "./styles";
 //Utilities
 import { URL_IMG_API_1280 as imgApi } from "utilities/ImgAPI";
@@ -39,20 +41,34 @@ const SingleMovie = ({ match }) => {
     return isImageLoaded ? null : blur;
   };
 
+  const renderSpinnerWhileLoading = () => {
+    return isImageLoaded ? null : <Spinner />;
+  };
+
   //Handlers
   const handleOnLoad = () => {
     setIsImageLoaded(true);
   };
 
   return (
-    <Container
-      img={imgApi + backdrop_path}
-      addCSS={applyBlurWhileLoading()}
-      onLoad={handleOnLoad}
-    >
+    <Container>
+      <ImgBackground
+        img={imgApi + backdrop_path}
+        addCSS={applyBlurWhileLoading()}
+        onLoad={handleOnLoad}
+      />
+
       <Content>
         <Title>{title}</Title>
-        <Img src={imgApi + poster_path} />
+        <ContainerImg>
+          <Img
+            src={imgApi + poster_path}
+            addCSS={applyBlurWhileLoading()}
+            onLoad={handleOnLoad}
+          />
+          {renderSpinnerWhileLoading()}
+        </ContainerImg>
+
         <List>
           <Item>
             Rating: <Icon>{vote_average}</Icon>
